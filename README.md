@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A demo Rails 7 app for uploading files with ActiveStorage
 
-Things you may want to cover:
+- Ruby 3.2.2
+- Rails 7.0.4.3
+- Database sqlite3
 
-* Ruby version
+### Add active storage
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- bin/rails active_storage:install
+- bin/rails db:migrate
+- Add gem "image_processing", "~> 1.2"
+- bundle
+- Add to Post model has_one_attached :photo
+- Add to :photo to PostsController post_params method: params.require(:post).permit(:title, :content, :photo)
+- Add to Post form view: <%= form.file_field :photo %>
+- Add to Post post partial view: <%= image_tag url_for(post.photo) if post.photo.attached? %>
