@@ -1,4 +1,4 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with(model: post, local: false) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -19,8 +19,9 @@
   </div>
   <div>
     <%= form.label :photo, style: "display: block" %>
-    <%= form.file_field :photo %>
+    <%= form.file_field :photo, data: { controller: 'file-upload', 'file-upload-target': 'source', action: 'change->file-upload#handleFileChange' } %>
   </div>
+  <br>
   <div>
     <%= form.submit %>
   </div>
