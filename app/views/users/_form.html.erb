@@ -1,0 +1,33 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- The uploaded blob will replace uploadAvatar here -->
+  <div id="uploadAvatar">
+    <% if user.avatar.attached? %>
+      <%= image_tag rails_blob_url(user&.avatar) %>
+      <p>Filename: <%= user&.avatar&.filename %></p>
+      <p>Content Type: <%= user&.avatar&.content_type %></p>
+      <p>Size: <%= number_to_human_size(user&.avatar&.byte_size) %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :avatar, style: "display: block" %>
+    <%= form.file_field :avatar, data: { controller: 'upload-ujs', action: 'change->upload-ujs#handleFileChange' } %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit 'Save' %>
+  </div>
+<% end %>
