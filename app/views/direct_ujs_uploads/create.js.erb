@@ -1,0 +1,9 @@
+// app/views/direct_ujs_uploads/create.js.erb
+// You can include any JavaScript code here that you want to execute after the create action
+console.log('Create action completed successfully!');
+<% if @blob.persisted? %>
+  turboStreamResponse = `<%= turbo_stream.replace 'uploadAvatar', partial: 'direct_ujs_uploads/blob', locals: { blob: @blob } %>`;
+  Turbo.renderStreamMessage(turboStreamResponse);
+<% else %>
+  // Handle error case if necessary
+<% end %>
