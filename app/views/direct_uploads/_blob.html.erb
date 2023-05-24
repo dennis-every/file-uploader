@@ -1,0 +1,6 @@
+<div id='uploadFrame'>
+  <%= image_tag rails_blob_url(blob) %>
+  <p>Filename: <%= blob.filename %></p>
+  <p>Content Type: <%= blob.content_type %></p>
+  <p>Size: <%= number_to_human_size(blob.byte_size) %></p>
+</div>
