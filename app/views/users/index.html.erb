@@ -1,7 +1,6 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Users</h1>
-
+<%= link_to "New user", new_user_path %>
 <div id="users">
   <% @users.each do |user| %>
     <%= render user %>
@@ -10,5 +9,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New user", new_user_path %>
