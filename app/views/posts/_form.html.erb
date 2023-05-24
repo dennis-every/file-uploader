@@ -1,4 +1,4 @@
-<%= form_with(model: post, local: false) do |form| %>
+<%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -9,6 +9,9 @@
       </ul>
     </div>
   <% end %>
+  <div id="uploadFrame">
+    <!-- The uploaded blob will be appended here -->
+  </div>
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
@@ -19,7 +22,7 @@
   </div>
   <div>
     <%= form.label :photo, style: "display: block" %>
-    <%= form.file_field :photo, data: { controller: 'file-upload', 'file-upload-target': 'source', action: 'change->file-upload#handleFileChange' } %>
+    <%= form.file_field :photo, data: { controller: 'file-upload', action: 'change->file-upload#handleFileChange' } %>
   </div>
   <br>
   <div>
