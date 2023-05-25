@@ -1,0 +1,5 @@
+<% if @blob.persisted? %>
+  <%= turbo_stream.replace 'uploadBookPhoto', partial: 'fetch_direct_uploads/blob', locals: { blob: @blob } %>
+<% else %>
+  // Handle error case if necessary
+<% end %>
