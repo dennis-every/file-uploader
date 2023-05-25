@@ -1,0 +1,33 @@
+<%= form_with(model: book) do |form| %>
+  <% if book.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- The uploaded blob will replace uploadBookPhoto here -->
+  <div id="uploadBookPhoto">
+    <% if book&.photo&.attached? %>
+      <%= image_tag rails_blob_url(book&.photo) %>
+      <p>Filename: <%= book&.photo&.filename %></p>
+      <p>Content Type: <%= book&.photo&.content_type %></p>
+      <p>Size: <%= number_to_human_size(book&.photo&.byte_size) %></p>
+    <% end %>
+  </div>
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :photo, style: "display: block" %>
+    <%= form.file_field :photo, data: { controller: 'book-photo-upload', action: 'change->book-photo-upload#handleFileChange' } %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
